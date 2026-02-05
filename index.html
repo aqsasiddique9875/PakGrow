@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PakAgri Soil Smart - Yield Optimization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #f0fdf4;
+        /* Modern subtle mesh gradient */
+        background-image: 
+          radial-gradient(at 0% 0%, hsla(140, 60%, 85%, 1) 0, transparent 50%), 
+          radial-gradient(at 50% 0%, hsla(160, 60%, 90%, 1) 0, transparent 50%), 
+          radial-gradient(at 100% 0%, hsla(150, 60%, 85%, 1) 0, transparent 50%);
+        background-attachment: fixed;
+        color: #1e293b;
+      }
+      
+      .font-urdu {
+        font-family: 'Noto Nastaliq Urdu', serif;
+        line-height: 1.8;
+      }
+      
+      /* Smooth fade-in-up animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Custom Range Slider Styling */
+      input[type=range] {
+        -webkit-appearance: none; 
+        background: transparent; 
+        height: 28px; 
+        margin: 0;
+        cursor: pointer;
+      }
+      input[type=range]:focus {
+        outline: none;
+      }
+      
+      /* Thumb */
+      input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 22px;
+        width: 22px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 2px solid #10b981;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        margin-top: -9px; 
+        transition: transform 0.1s, box-shadow 0.1s;
+      }
+      input[type=range]::-webkit-slider-thumb:hover {
+        transform: scale(1.15);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Track */
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+        background: #e2e8f0;
+        border-radius: 999px;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1; 
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8; 
+      }
+
+      /* Print Styles */
+      @media print {
+        @page {
+          margin: 0;
+          size: auto;
+        }
+        
+        html, body {
+          height: auto !important;
+          overflow: visible !important;
+          background: white !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        #root, main {
+          height: auto !important;
+          overflow: visible !important;
+          display: block !important;
+        }
+
+        /* Reset any fixed positioning or scroll containers */
+        * {
+          transform: none !important;
+          transition: none !important;
+          animation: none !important;
+          box-shadow: none !important;
+        }
+
+        /* Hide everything by default */
+        body > * {
+          display: none !important;
+        }
+        
+        /* Show only the root (which contains the report) but manage visibility inside */
+        body > #root {
+          display: block !important;
+        }
+
+        /* Hide all children of root except the main printable area */
+        #root > * {
+           display: none !important;
+        }
+
+        /* We need to target the ResultsDisplay container specifically if we can't use ID selectors efficiently on parents
+           But cleaner is to hide everything via a utility class 'no-print' applied to siblings
+        */
+
+        #printable-report {
+          display: block !important;
+          position: relative !important;
+          width: 100% !important;
+          left: auto !important;
+          top: auto !important;
+          margin: 0 !important;
+          padding: 20px !important; /* Add some padding for the paper edge */
+          background: white !important;
+        }
+
+        #printable-report * {
+           visibility: visible !important;
+        }
+        
+        .no-print {
+          display: none !important;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
